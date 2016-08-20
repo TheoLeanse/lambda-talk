@@ -1,0 +1,140 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/solarized.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1>AWS Lambda etc.</h1>
+				</section>
+
+				<section>Hello!</section>
+
+				<section>
+					<h1>Agenda</h1>
+					<ul>
+						<li>Overview</li>
+						<li>What is it good for?</li>
+						<li>Example(s)</li>
+						<li>Flaws</li>
+						<li>Frameworks & helpers</li>
+						<li>Run away</li>
+					</ul>
+				</section>
+
+				<section>
+					<section>
+						<h3>what?</h3>
+					</section>
+					<section>
+						Event-driven, stateless functions as a service
+						<br>
+						Meaning they respond to some action, chew some input, spit out the output and die. And that Amazon takes care of everything in the cloud.
+					</section>
+					<section>
+						History
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h3>why?</h3>
+					</section>
+					<section>
+						<h4>The benefits of Lambda for you</h4>
+						<p>Big picture: think about your services rather than your infrastructure (horizontal scaling, high availability etc.). Save time, money and the planet</p>
+					</section>
+					<section>
+						<h4>The benefits of Lambda for AWS</h4>
+					</section>
+					<section>
+						<h4>What do we compare it to</h4>
+						<p>EC2 or heroku<p>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h3>when?</h3>
+					</section>
+					<section>
+						Data processing pipelines connecting to other AWS services
+					</section>
+					<section>
+						Scheduled jobs
+					</section>
+					<section>
+						Lightweight APIs
+					</section>
+					<section>
+						OR your entire back-end and everything else ever
+					</section>
+				</section>
+				<section>
+					<section>
+						<h3>how?</h3>
+					</section>
+					<section>
+						In its simplest form
+						<br>
+						you write a handler function which takes a certain number of arguments,
+						<br>
+						zip it
+						<br>
+						upload it to amazon (cli, but you can use console)
+						<br>
+						check it in the console and test it with some dummy json.
+						<br>
+						of course, this has no trigger. Triggers can be many things.
+					</section>
+					<section>
+						Hello, world API
+						<br>
+						Intro to API Gateway as a Lambda trigger
+						<br>
+						drawbacks to using lambda as your backend
+					</section>
+				</section>
+
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				history: true,
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>
