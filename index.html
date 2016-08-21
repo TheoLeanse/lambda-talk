@@ -14,11 +14,11 @@
 
 		<!-- Printing and PDF exports -->
 		<script>
-			var link = document.createElement( 'link' );
-			link.rel = 'stylesheet';
-			link.type = 'text/css';
-			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
-			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		 var link = document.createElement( 'link' );
+		 link.rel = 'stylesheet';
+		 link.type = 'text/css';
+		 link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+		 document.getElementsByTagName( 'head' )[0].appendChild( link );
 		</script>
 	</head>
 	<body>
@@ -43,8 +43,20 @@
 				</section>
 
 				<section>
+					<section><h1>?</h1></section>
 					<section>
-						<h3>what?</h3>
+						Serverless
+					</section>
+					<section>
+						Stateless
+					</section>
+					<section>
+						Event-driven
+					</section>
+					<section>
+						definition?
+						code that runs in stateless compute containers that are event-triggered, ephemeral (may only last for one invocation), and fully managed by a 3rd party
+						 - to paraphrase Mike Roberts paraphrasing Thoughtworks
 					</section>
 					<section>
 						Event-driven, stateless functions as a service
@@ -52,20 +64,22 @@
 						Meaning they respond to some action, chew some input, spit out the output and die. And that Amazon takes care of everything in the cloud.
 					</section>
 					<section>
-						History
+						History and hoo-ha around serverless
 					</section>
 				</section>
 
 				<section>
 					<section>
-						<h3>why?</h3>
+						<h3>benefits</h3>
+						<ul>
+							<li>abstract away the infrastructure</li>
+							<li>encourage a certain kind of programming</li>
+							<li>(can be) cheap</li>
+						</ul>
 					</section>
 					<section>
 						<h4>The benefits of Lambda for you</h4>
 						<p>Big picture: think about your services rather than your infrastructure (horizontal scaling, high availability etc.). Save time, money and the planet</p>
-					</section>
-					<section>
-						<h4>The benefits of Lambda for AWS</h4>
 					</section>
 					<section>
 						<h4>What do we compare it to</h4>
@@ -95,6 +109,35 @@
 						<h3>how?</h3>
 					</section>
 					<section>
+						you need a service that will insult your users, so you write a library to do it
+						<br>
+						<br>
+						insult.js
+						<pre><code>module.exports = function (username) {
+	return username + 'is a ninny';
+}</code></pre>
+					</section>
+					<section>
+						now of course you need this to be a microservice available over http, so you turn to the power of lambda!
+						<br>
+						<br>
+						insulting-lambda.js
+						<pre><code>var insult = require('./insult');
+exports.handler = function (event, context, callback) {
+	context.succeed(insult(event.username));
+}</code></pre>
+					</section>
+					<section>
+						zip it and upload it to aws using aws-cli (properly configured) and an IAM role (important)
+						<pre><code>$ zip insultr insultr.js // actually need to include its dependencies
+$ aws lambda create-function --region eu-west-1 \
+	--function-name insultr
+	--zip-file fileb://path/to/insultr.zip
+	--role role-arn
+	--handler insultr.handler
+	--runtime nodejs4.3</code></pre>
+					</section>
+					<section>
 						In its simplest form
 						<br>
 						you write a handler function which takes a certain number of arguments,
@@ -115,6 +158,46 @@
 						drawbacks to using lambda as your backend
 					</section>
 				</section>
+				<section>
+					<section>flAWS</section>
+					<section>immature service</section>
+					<section>errors - the downside of serverless - you got to be exlici about your logging</section>
+				</section>
+				<section>
+					<section>
+						Things to make it nicer
+					</section>
+					<section>
+						Java... umm
+					</section>
+					<section>
+						python api - chalice
+						<br>
+						simple and beaut - bound to be more of this in the coming while
+					</section>
+					<section>
+						node - serverless (formally jaws)
+						<br><br>
+						sorts of presets you can get & screenshot
+					</section>
+					<section>
+						Node and Go - apex
+						<br>
+						Apex is what I'd recommend most. It's from the guy who did Express, lets you do go automatically, provides a nice abstraction around building a project out of many little functions while versioning it all and deploying it all and env variables and node modules and logs, too. it's cool.
+					</section>
+					<section>
+						node-lamda for lightweight deploy and test
+					</section>
+					<section>
+						Other languages: if it's on the JVM you shoul be able to do something. or you can compile a binaty and execute it with node, which is cool and prob see a lot of
+					</section>
+					<section>
+						graphQL
+					</section>
+				</section>
+				<section>
+					In summary
+				</section>
 
 			</div>
 		</div>
@@ -123,18 +206,18 @@
 		<script src="js/reveal.js"></script>
 
 		<script>
-			// More info https://github.com/hakimel/reveal.js#configuration
-			Reveal.initialize({
-				history: true,
+		 // More info https://github.com/hakimel/reveal.js#configuration
+		 Reveal.initialize({
+			 history: true,
 
-				// More info https://github.com/hakimel/reveal.js#dependencies
-				dependencies: [
-					{ src: 'plugin/markdown/marked.js' },
-					{ src: 'plugin/markdown/markdown.js' },
-					{ src: 'plugin/notes/notes.js', async: true },
-					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
-				]
-			});
+			 // More info https://github.com/hakimel/reveal.js#dependencies
+			 dependencies: [
+				 { src: 'plugin/markdown/marked.js' },
+				 { src: 'plugin/markdown/markdown.js' },
+				 { src: 'plugin/notes/notes.js', async: true },
+				 { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+			 ]
+		 });
 		</script>
 	</body>
 </html>
