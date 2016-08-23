@@ -25,11 +25,105 @@
 		<div class="reveal">
 			<div class="slides">
 				<section>
-					<h1>AWS Lambda etc.</h1>
+					<h1>🐑🐑🐑🐑🐑🐑🐑🐑🐑🐑🐑🐑🐑🐑🐑🐑🐑🐑🐑🐑🐑🐑🐑🐑🐑🐑🐑🐑</h1>
 				</section>
 
-				<section>Hello!</section>
+				<section>
+					<section>
+						<h3>namecallr</h3>
+						<pre><code>module.exports = function (name) {
+  var insults = [
+	'ninny',
+	'ninconpoop',
+	'imbecile'
+  ];
 
+  var sample = function (items) {
+	return items[Math.floor(Math.random() * items.length)]
+  };
+
+  return name + ' is a ' + sample(insults);
+}</code></pre>
+					</section>
+					<section>
+						<img src="./img/server_problem.png">
+					</section>
+					<section>
+						<img src="./img/Screen Shot 2016-08-23 at 16.25.38.png">
+					</section>
+					<section>
+						<img src="./img/Screen Shot 2016-08-23 at 16.25.45.png">
+					</section>
+				</section>
+				<section>
+					<section>
+						<h1>🐑🐑🐑🐑🐑🐑🐑🐑🐑🐑🐑🐑🐑🐑🐑🐑🐑🐑🐑🐑🐑🐑🐑🐑🐑🐑🐑🐑</h1>
+					</section>
+					<section>
+						<h1>Serverless</h1>
+					</section>
+					<section>
+						<h1>Triggered by an event in AWS</h1>
+					</section>
+					<section>
+						<h1>Thrown away</h1>
+					</section>
+					<section>
+						<h1>Cheap</h1>
+						<ul>
+							<li>First 1 million requests per month are free</li>
+							<li>after that it's $0.20 per 1 million requests</li>
+							<li>plus $0.00001667 for every GB-second used</li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<section>
+						1. write a handler
+					<pre><code>var namecallr = require('./namecallr');
+
+exports.index = function(event, context) {
+  if (!event || !event.name) context.fail('Fuck off');
+  context.succeed(namecallr(event.name));
+}</code></pre>
+					</section>
+					<section>
+						2. zip it up with dependencies and send it off to the cloud
+						<pre><code>$ zip -r namecallr.zip namecallr
+$ aws lambda create-function --region eu-west-1 \
+	--function-name namecallr \
+	--zip-file fileb:///Users/theo.leanse/Dropbox/code/presentations/aws-lambda/namecallr/namecallr.zip \
+	--role arn:aws:iam::963856891291:role/lambda_basic_execution \
+	--handler index.handle \
+	--runtime nodejs4.3</code></pre>
+					</section>
+					<section>
+						3. give it a trigger
+						<pre><code>$ curl -X POST https://BLAHBLAHBLAH.execute-api.eu-west-1.amazonaws.com/dev -d '{"name":"someone"}'</code></pre>
+					</section>
+				</section>
+				<section>
+				<section>
+					<h4>Other things to do with LAmbda</h4>
+					<ul>
+						<li>hobby projects</li>
+						<li>sceduled jobs</li>
+						<li>data processing pipelines</li>
+						<li>CRUD APIs?</li>
+					</ul>
+				</section>
+				<section>
+					<h4>Drawbacks</h4>
+					<ul>
+						<li>debugging & error handling</li>
+						<li>language support</li>
+						<li>general AWS annoyingness</li>
+					</ul>
+				</section>
+				</section>
+				<section>
+					<img src="./img/meet-batlamb--the-superhero-sheep-136389840026303901-140502140328.jpg">
+				</section>
 				<section>
 					<h1>Agenda</h1>
 					<ul>
